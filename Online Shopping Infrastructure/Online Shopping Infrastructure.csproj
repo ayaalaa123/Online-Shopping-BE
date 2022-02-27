@@ -5,4 +5,8 @@
     <RootNamespace>Online_Shopping_Infrastructure</RootNamespace>
   </PropertyGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\Online Shopping Domain\Online Shopping Domain.csproj" />
+  </ItemGroup>
+
 </Project>
