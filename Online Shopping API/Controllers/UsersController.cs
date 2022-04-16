@@ -44,5 +44,21 @@ namespace Online_Shopping_API.Controllers
             }
 
         }
+
+        [HttpPost("Login")]
+        public IActionResult Login( LoginUserDTO loginUserDTO )
+        {
+            try
+            {
+                _userService.Login(loginUserDTO);
+
+                return Ok();
+            }
+            catch (Exception e)
+            {
+                return BadRequest(e.Message);
+            }
+
+        }
     }
 }

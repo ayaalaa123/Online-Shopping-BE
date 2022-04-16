@@ -1,4 +1,5 @@
-﻿using Online_Shopping_Domain.Entities;
+﻿using Online_Shopping_Domain.DTO;
+using Online_Shopping_Domain.Entities;
 using Online_Shopping_Infrastructure.Helpers;
 using Online_Shopping_Infrastructure.Interfaces;
 using Online_Shopping_Infrastructure.IServices;
@@ -52,6 +53,17 @@ namespace Online_Shopping_Infrastructure.Services
         public User GetById(Guid id)
         {
             return _userRepository.Get(a => a.Id == id).FirstOrDefault();
+        }
+
+        public void Login(LoginUserDTO loginUserDTO)
+        {
+            var ExistingUser = _userRepository.Get(a => a.Email == loginUserDTO.Email && a.Password==loginUserDTO.Password).FirstOrDefault();
+
+            if (ExistingUser == null)
+            {
+                throw new CustomException("User not found");
+                
+            }
         }
 
         public void Update(User user)
