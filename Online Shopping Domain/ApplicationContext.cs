@@ -15,6 +15,11 @@ namespace Online_Shopping_Domain
         {
         }
 
+
+
+
         public DbSet<Product> Products { get; set; }
+        public DbSet<User> Users { get; set; }
+
     }
 }

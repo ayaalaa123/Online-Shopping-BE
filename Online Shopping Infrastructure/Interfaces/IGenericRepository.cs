@@ -9,7 +9,7 @@ namespace Online_Shopping_Infrastructure.Interfaces
 {
     public interface IGenericRepository<T> where T : BaseEntity
     {
-        IEnumerable<T> Get();
+        IEnumerable<T> GetAll();
         IEnumerable<T> Get(Expression<Func<T, bool>> predicate);
         void Add(T entity);
         void Delete(T entity);

@@ -28,13 +28,14 @@ namespace Online_Shopping_Infrastructure.Repositories
             if (existing != null) _unitOfWork.Context.Set<T>().Remove(existing);
         }
 
-        public IEnumerable<T> Get()
+        public IEnumerable<T> GetAll()
         {
             return _unitOfWork.Context.Set<T>().AsEnumerable<T>();
         }
 
         public IEnumerable<T> Get(System.Linq.Expressions.Expression<Func<T, bool>> predicate)
         {
+           
             return _unitOfWork.Context.Set<T>().Where(predicate).AsEnumerable<T>();
         }
 
