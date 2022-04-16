@@ -1,3 +1,4 @@
+using AutoMapper;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -9,7 +10,9 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.OpenApi.Models;
 using Online_Shopping_Domain;
+using Online_Shopping_Domain.MappingProfile;
 using Online_Shopping_Infrastructure.Interfaces;
+using Online_Shopping_Infrastructure.IServices;
 using Online_Shopping_Infrastructure.Repositories;
 using Online_Shopping_Infrastructure.Services;
 using System;
@@ -33,8 +36,20 @@ namespace Online_Shopping_API
         {
             services.AddDbContext<ApplicationContext>(options =>
                     options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
+
+            // Auto Mapper Configurations
+            var mapperConfig = new MapperConfiguration(mc =>
+            {
+                mc.AddProfile(new MappingProfile());
+            });
+
+            IMapper mapper = mapperConfig.CreateMapper();
+            services.AddSingleton(mapper);
+
             services.AddScoped(typeof(IGenericRepository<>), typeof(GenericRepository<>));
             services.AddScoped<IUnitOfWork, UnitOfWork>();
+            services.AddScoped<IUserService, UserService>();
+
 
             services.AddScoped<IProductService, ProductService>();
             // Register the Swagger generator, defining 1 or more Swagger documents
@@ -46,7 +61,7 @@ namespace Online_Shopping_API
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env, ApplicationContext dataContext)
         {
             // Enable middleware to serve generated Swagger as a JSON endpoint.
             app.UseSwagger();
@@ -67,10 +82,13 @@ namespace Online_Shopping_API
 
             app.UseAuthorization();
 
+            dataContext.Database.Migrate();
+
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();
             });
         }
     }
+
 }
