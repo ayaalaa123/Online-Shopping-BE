@@ -24,7 +24,7 @@ namespace Online_Shopping_Infrastructure.Repositories
 
         public void Delete(T entity)
         {
-            _unitOfWork.Context.Set<T>().Remove(existing);
+            _unitOfWork.Context.Set<T>().Remove(entity);
         }
 
         public IEnumerable<T> GetAll()
