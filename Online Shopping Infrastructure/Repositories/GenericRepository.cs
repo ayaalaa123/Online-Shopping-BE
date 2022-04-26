@@ -24,8 +24,7 @@ namespace Online_Shopping_Infrastructure.Repositories
 
         public void Delete(T entity)
         {
-            T existing = _unitOfWork.Context.Set<T>().Find(entity);
-            if (existing != null) _unitOfWork.Context.Set<T>().Remove(existing);
+            _unitOfWork.Context.Set<T>().Remove(existing);
         }
 
         public IEnumerable<T> GetAll()
@@ -41,8 +40,8 @@ namespace Online_Shopping_Infrastructure.Repositories
 
         public void Update(T entity)
         {
-            _unitOfWork.Context.Entry(entity).State = EntityState.Modified;
             _unitOfWork.Context.Set<T>().Attach(entity);
+            _unitOfWork.Context.Entry(entity).State = EntityState.Modified;
         }
     }
     }
