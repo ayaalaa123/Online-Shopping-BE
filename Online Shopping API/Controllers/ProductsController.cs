@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Online_Shopping_Domain.DTO.ProductDTO;
 using Online_Shopping_Domain.Entities;
@@ -7,6 +8,7 @@ using Online_Shopping_Infrastructure.Services;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.Http.Headers;
 using System.Threading.Tasks;
 
 namespace Online_Shopping_API.Controllers
@@ -23,10 +25,11 @@ namespace Online_Shopping_API.Controllers
         }
 
         [HttpPost]
-        public IActionResult AddProduct(AddProductDTO addProductDTO)
+        public IActionResult AddProduct([FromForm]  AddProductDTO addProductDTO)
         {
             try
             {
+               
                 _productService.AddProduct(addProductDTO);
                 return Ok();
             }

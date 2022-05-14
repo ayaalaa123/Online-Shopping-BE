@@ -25,5 +25,9 @@
     <ProjectReference Include="..\Online Shopping Infrastructure\Online Shopping Infrastructure.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="wwwroot\Images\" />
+  </ItemGroup>
+
 
 </Project>

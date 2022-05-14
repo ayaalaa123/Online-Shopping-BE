@@ -7,7 +7,9 @@ namespace Online_Shopping_Domain.Entities
    public class Product :BaseEntity
     {
         public string Name { get; set; }
-        public string Image { get; set; }
+        public string ImagePath { get; set; }
+
+        public string Category { get; set; }
         public string Describtion { get; set; }
 
         public decimal Price { get; set; }
