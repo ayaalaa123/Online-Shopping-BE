@@ -34,6 +34,15 @@ namespace Online_Shopping_API
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddCors(options =>
+            {
+                options.AddDefaultPolicy(
+                    builder =>
+                    {
+                        builder.AllowAnyOrigin().AllowAnyHeader().AllowAnyMethod();
+                    });
+            });
+
             services.AddDbContext<ApplicationContext>(options =>
                     options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
 
@@ -46,7 +55,6 @@ namespace Online_Shopping_API
             IMapper mapper = mapperConfig.CreateMapper();
             services.AddSingleton(mapper);
 
-            services.AddCors();
 
             services.AddScoped(typeof(IGenericRepository<>), typeof(GenericRepository<>));
             services.AddScoped<IUnitOfWork, UnitOfWork>();
