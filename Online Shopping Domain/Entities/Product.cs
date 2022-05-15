@@ -10,7 +10,7 @@ namespace Online_Shopping_Domain.Entities
         public string ImagePath { get; set; }
 
         public string Category { get; set; }
-        public string Describtion { get; set; }
+        public string Description { get; set; }
 
         public decimal Price { get; set; }
 

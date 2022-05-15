@@ -76,6 +76,18 @@ namespace Online_Shopping_Infrastructure.Services
         public void UpdateProduct(UpdateProductDTO updateProductDTO)
         {
             var MappedProduct = _mapper.Map<Product>(updateProductDTO);
+            if (updateProductDTO.Image != null)
+            {
+                var fileName = Path.GetFileName(updateProductDTO.Image.FileName);
+                var filePath = Path.Combine(_env.WebRootPath, "Images", fileName);
+                using (var fileStream = new FileStream(filePath, FileMode.Create))
+                {
+                    updateProductDTO.Image.CopyTo(fileStream);
+                }
+
+                MappedProduct.ImagePath = filePath;
+
+            }
             _productRepository.Update(MappedProduct);
             _unitOfWork.Commit();
           

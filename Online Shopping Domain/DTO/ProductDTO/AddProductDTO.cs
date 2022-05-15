@@ -9,7 +9,7 @@ namespace Online_Shopping_Domain.DTO.ProductDTO
     {
         public string Name { get; set; }
         public IFormFile Image { get; set; }
-        public string Describtion { get; set; }
+        public string Description { get; set; }
 
         public string Category { get; set; }
 
